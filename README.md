@@ -23,14 +23,14 @@
 
 ### 第零步：安装 APK
 
-步步高平板限制了第三方 APK 的安装，无法通过常规方式（文件管理器、U 盘）直接安装。需要利用 `com.android.packageinstaller` 的白名单包机制绕过：
+步步高平板限制了第三方 APK 的安装，无法通过常规方式（文件管理器、U 盘）直接安装。需要利用 `com.android.packageinstaller` 的白名单机制绕过：
 
-1. 找到一个白名单内的应用（如系统自带的某个可更新应用）
-2. 定位该应用在 `/data/app/` 下的缓存 APK 路径
-3. 将本工具的 APK 替换为该缓存包（文件名保持一致）
-4. 触发系统的应用安装/更新流程，系统会将其视为白名单包的更新从而放行安装
+`packageinstaller` 会放行所有 **已安装过的包** 的更新安装。利用这一点：
 
-> 具体可替换的白名单包因系统版本而异，需要自行探索设备上哪些包名被 packageinstaller 放行。
+1. 找到设备上任意一个已安装的应用（系统应用或用户应用均可）
+2. 定位该应用在 `/data/app/` 下的缓存 APK
+3. 将本工具的 APK 替换为该缓存 APK（文件名保持一致）
+4. 触发安装流程，系统识别为已安装包的更新，放行安装
 
 ### 第一步：启用开发者选项
 
@@ -70,12 +70,12 @@ APK 输出路径：`app/build/outputs/apk/release/app-release.apk`
 
 步步高学习平板对系统做了以下定制：
 
-1. 限制了第三方 APK 安装，`com.android.packageinstaller` 内置了包名白名单，只允许白名单内的应用安装/更新
+1. 限制了第三方 APK 安装，`com.android.packageinstaller` 只放行已安装过的包的更新，拒绝全新包的安装
 2. 替换了"设置"App 的入口界面，隐藏了"关于平板"等页面
 3. 劫持了"连续点击版本号"的行为，跳转到 `com.eebbk.stresstest`（工厂测试）
 4. 但 **没有移除** Android 原生的 `com.android.settings.Settings$MyDeviceInfoActivity`
 
-**安装绕过：** 利用 packageinstaller 白名单包的缓存替换机制——将本工具的 APK 伪装为白名单应用的更新包，系统会放行安装。
+**安装绕过：** `packageinstaller` 放行所有已安装包的更新。将本工具的 APK 替换为某个已安装应用的缓存 APK，系统会将其视为合法更新而放行。
 
 **开发者选项绕过：** 通过 Intent 直接启动原生 Activity，绕过定制界面。
 
