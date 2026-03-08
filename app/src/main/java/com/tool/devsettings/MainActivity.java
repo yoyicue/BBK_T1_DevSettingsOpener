@@ -55,20 +55,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        // 其他有用入口
-        addSection(layout, "其他有用入口");
+        // 其他
+        addSection(layout, "其他");
         addButton(layout, "系统设置", v ->
             launch("com.android.settings",
                    "com.android.settings.Settings"));
-        addButton(layout, "USB 详情", v ->
-            launch("com.android.settings",
-                   "com.android.settings.Settings$UsbDetailsActivity"));
-        addButton(layout, "调试工具箱 (bbklogger)", v ->
-            launch("com.eebbk.bbklogger",
-                   "com.eebbk.bbklogger.debugtool.DebugToolboxActivity"));
-        addButton(layout, "BackDoor (magicmouse)", v ->
-            launch("com.eebbk.magicmouse",
-                   "com.eebbk.magicmouse.setting.backdoor.BackDoorActivity"));
 
         scroll.addView(layout);
         setContentView(scroll);
