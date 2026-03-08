@@ -1,29 +1,29 @@
-# BBK 开发者工具 (DevSettingsOpener)
+# BBK T1 开发者工具 (DevSettingsOpener)
 
-一个帮助步步高 (EEBBK) 学习平板开启开发者选项的小工具。
+帮助 BBK T1 学习平板开启开发者选项的小工具。
 
 ## 背景
 
-步步高学习平板的系统设置经过深度定制，隐藏或劫持了开发者选项的常规入口：
+BBK T1 学习平板的系统设置经过深度定制，隐藏或劫持了开发者选项的常规入口：
 
 - 设置中的"关于平板"被替换为定制页面
 - 连续点击"版本号"7 次会被劫持，打开工厂测试 App 而非启用开发者选项
 - Shell / ContentResolver 等方式因权限限制无法写入 `development_settings_enabled`
 
-**核心发现：** 步步高只是隐藏了入口，没有删除 Android 原生的 Settings Activity。通过 Intent 直接调用 `Settings$MyDeviceInfoActivity` 可以绕过劫持，正常启用开发者选项。
+**核心发现：** BBK 只是隐藏了入口，没有删除 Android 原生的 Settings Activity。通过 Intent 直接调用 `Settings$MyDeviceInfoActivity` 可以绕过劫持，正常启用开发者选项。
 
 ## 适用设备
 
-- **步步高 (EEBBK)** 学习平板，已验证型号：
-  - EEBBK T1
-- 理论上适用于大部分使用 `com.eebbk.*` 系统包的步步高学习平板
+- **BBK** 学习平板，已验证型号：
+  - BBK T1
+- 理论上适用于大部分使用 `com.eebbk.*` 系统包的 BBK 学习平板
 - 基于高通 (Qualcomm) 平台
 
 ## 使用方法
 
 ### 第零步：安装 APK
 
-步步高平板限制了第三方 APK 的安装，无法通过常规方式（文件管理器、U 盘）直接安装。需要利用 `com.android.packageinstaller` 的白名单机制绕过：
+BBK 平板限制了第三方 APK 的安装，无法通过常规方式（文件管理器、U 盘）直接安装。需要利用 `com.android.packageinstaller` 的白名单机制绕过：
 
 `packageinstaller` 会放行所有 **已安装过的包** 的更新安装。利用这一点：
 
@@ -35,8 +35,8 @@
 ### 第一步：启用开发者选项
 
 1. 打开 App，点击 **「打开 设备信息（点版本号7次）」**
-3. 在打开的原生设备信息页面，找到「版本号」，**连续点击 7 次**
-4. 提示"您已处于开发者模式"即为成功
+2. 在打开的原生设备信息页面，找到「版本号」，**连续点击 7 次**
+3. 提示"您已处于开发者模式"即为成功
 
 ### 第二步：开启 USB 调试
 
@@ -61,7 +61,7 @@ APK 输出路径：`app/build/outputs/apk/release/app-release.apk`
 
 ## 原理
 
-步步高学习平板对系统做了以下定制：
+BBK T1 学习平板对系统做了以下定制：
 
 1. 限制了第三方 APK 安装，`com.android.packageinstaller` 只放行已安装过的包的更新，拒绝全新包的安装
 2. 替换了"设置"App 的入口界面，隐藏了"关于平板"等页面
@@ -70,9 +70,7 @@ APK 输出路径：`app/build/outputs/apk/release/app-release.apk`
 
 **安装绕过：** `packageinstaller` 放行所有已安装包的更新。将本工具的 APK 替换为某个已安装应用的缓存 APK，系统会将其视为合法更新而放行。
 
-**开发者选项绕过：** 通过 Intent 直接启动原生 Activity，绕过定制界面。
-
-本工具通过 Intent 直接启动这个原生 Activity，绕过了步步高的定制界面限制：
+**开发者选项绕过：** 通过 Intent 直接启动原生 Activity，绕过定制界面：
 
 ```java
 Intent intent = new Intent();
