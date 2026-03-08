@@ -45,7 +45,7 @@
 3. USB 连接电脑，平板弹出确认框，点击 **允许**
 4. 电脑终端执行 `adb devices` 确认连接
 
-App 还提供了「系统设置」入口，可打开 Android 原生系统设置。
+App 还提供了「系统设置」入口，可打开 Android 原生系统设置（`com.android.settings.Settings`）。该 Activity 未被删除，只是被 BBK 定制的 launcher 隐藏了入口。
 
 ## 构建
 
