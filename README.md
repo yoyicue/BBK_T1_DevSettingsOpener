@@ -45,14 +45,7 @@
 3. USB 连接电脑，平板弹出确认框，点击 **允许**
 4. 电脑终端执行 `adb devices` 确认连接
 
-## 其他功能
-
-| 按钮 | 说明 |
-|------|------|
-| 系统设置 | 打开 Android 原生系统设置 |
-| USB 详情 | 打开 USB 配置页面 |
-| 调试工具箱 | 打开 bbklogger 的 DebugToolbox（如果设备存在） |
-| BackDoor | 打开 magicmouse 的后门 Activity（如果设备存在） |
+App 还提供了「系统设置」入口，可打开 Android 原生系统设置。
 
 ## 构建
 
